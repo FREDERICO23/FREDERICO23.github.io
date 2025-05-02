@@ -1,844 +1,1218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fredrick Adhing'a - ML Engineer & Developer</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --dark-color: #212529;
+            --light-color: #f8f9fa;
+            --accent-color: #20c997;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        .hero-section {
+            background: linear-gradient(rgba(13, 110, 253, 0.9), rgba(13, 110, 253, 0.7)), url('/api/placeholder/1920/1080') center/cover no-repeat;
+            height: 100vh;
+            color: white;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar {
+            transition: all 0.3s ease;
+        }
+        
+        .navbar.scrolled {
+            background-color: rgba(13, 110, 253, 0.95) !important;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        .skill-item {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .progress-bar {
+            transition: width 1.5s ease-in-out;
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            margin-bottom: 2rem;
+            border-left: 2px solid var(--primary-color);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            left: -8px;
+            top: 0;
+        }
+        
+        .project-card {
+            border: none;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+        
+        /* Neural Network Animation */
+        .neural-network {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
 
-    <!--====== Required meta tags ======-->
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!--====== Title ======-->
-    <title>Unfold - Personal Portfolio & CV Template</title>
-
-    <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="assets/images/favicon.png" type="image/png">
-
-    <!--====== Bootstrap css ======-->
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-
-    <!--====== Line Icons css ======-->
-    <link rel="stylesheet" href="assets/css/LineIcons.css">
-
-    <!--====== Magnific Popup css ======-->
-    <link rel="stylesheet" href="assets/css/magnific-popup.css">
-
-    <!--====== Default css ======-->
-    <link rel="stylesheet" href="assets/css/default.css">
-
-    <!--====== Style css ======-->
-    <link rel="stylesheet" href="assets/css/style.css">
-
-
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 999;
+        }
+        
+        /* Skills visualization */
+        .skill-bubble {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 5px;
+            border-radius: 20px;
+            background-color: rgba(13, 110, 253, 0.1);
+            border: 1px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+        
+        .skill-bubble:hover {
+            background-color: var(--primary-color);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        /* ML Playground section */
+        .playground-card {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+        
+        .playground-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        /* Profile image styling */
+        .profile-image-container {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile-image {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            transition: transform 0.5s ease;
+        }
+        
+        .profile-image-container:hover .profile-image {
+            transform: scale(1.03);
+        }
+        
+        /* Gallery styling */
+        .gallery-container {
+            column-count: 3;
+            column-gap: 15px;
+        }
+        
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .gallery-item img {
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+        
+        .gallery-item .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .gallery-item:hover .gallery-caption {
+            opacity: 1;
+        }
+        
+        /* Project category tabs */
+        .project-tabs .nav-link {
+            color: var(--secondary-color);
+            border: none;
+            border-radius: 0;
+            padding: 15px 25px;
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .project-tabs .nav-link.active {
+            color: var(--primary-color);
+            background: transparent;
+        }
+        
+        .project-tabs .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary-color);
+        }
+        
+        /* Publication card */
+        .publication-card {
+            border: none;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%;
+        }
+        
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .publication-date {
+            background-color: var(--primary-color);
+            color: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-weight: bold;
+        }
+        
+        /* Custom section background */
+        .bg-gradient-light {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .bg-gradient-dark {
+            background: linear-gradient(135deg, #212529 0%, #343a40 100%);
+            color: white;
+        }
+        
+        /* Project type badges */
+        .project-type {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 10;
+        }
+    </style>
 </head>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="50">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">FREDRICK ADHING'A</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#experience">Experience</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#projects">Projects</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#publications">Publications</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#playground">ML Playground</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
-<body>
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="neural-network" id="network-canvas"></div>
+        <div class="container text-center">
+            <h1 class="display-3 fw-bold mb-4" data-aos="fade-down" data-aos-duration="1000">FREDRICK ADHING'A</h1>
+            <h2 class="h3 mb-4" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">Machine Learning Engineer & Full-Stack Developer</h2>
+            <p class="lead mb-5" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400">Building intelligent solutions with data science, machine learning, and web development</p>
+            <div class="d-flex justify-content-center gap-3" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="600">
+                <a href="#contact" class="btn btn-light btn-lg px-4">Contact Me</a>
+                <a href="#projects" class="btn btn-outline-light btn-lg px-4">View My Work</a>
+            </div>
+        </div>
+    </section>
 
-    <!--====== PRELOADER PART START ======-->
-
-    <div class="preloader">
-        <div class="loader_34">
-            <div class="ytp-spinner">
-                <div class="ytp-spinner-container">
-                    <div class="ytp-spinner-rotator">
-                        <div class="ytp-spinner-left">
-                            <div class="ytp-spinner-circle"></div>
-                        </div>
-                        <div class="ytp-spinner-right">
-                            <div class="ytp-spinner-circle"></div>
+    <!-- About Section -->
+    <section id="about" class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-5 mb-4 mb-lg-0" data-aos="fade-right">
+                    <div class="profile-image-container">
+                        <img src="https://picsum.photos/seed/picsum/600/800" class="profile-image" alt="Fredrick Adhing'a">
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="fade-left">
+                    <h2 class="display-5 fw-bold mb-4">About Me</h2>
+                    <p class="lead">I'm a Machine Learning Engineer and Full-Stack Developer with expertise in AI, NLP, and data science.</p>
+                    <p>With experience in developing intelligent systems and web applications, I specialize in creating solutions that leverage the power of machine learning and modern web technologies. My passion lies in building practical AI applications that solve real-world problems.</p>
+                    <p>I enjoy working with Python, TensorFlow, PyTorch, Django, and various cloud platforms to deploy scalable and efficient solutions. My background in both software development and machine learning allows me to bridge the gap between data science and production engineering.</p>
+                    <div class="mt-4">
+                        <a href="https://linkedin.com/in/fredrick-adhing-a" target="_blank" class="btn btn-primary me-2">
+                            <i class="fab fa-linkedin me-2"></i>LinkedIn
+                        </a>
+                        <a href="https://github.com/FREDERICO23" target="_blank" class="btn btn-dark">
+                            <i class="fab fa-github me-2"></i>GitHub
+                        </a>
+                    </div>
+                    
+                    <div class="card border-0 shadow-lg mt-4">
+                        <div class="card-body p-4">
+                            <h3 class="card-title mb-4">Education & Achievements</h3>
+                            <div class="timeline-item">
+                                <h4>BSc in Computer Technology</h4>
+                                <p class="text-muted">Meru University of Science and Technology | 2019 - 2023</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4>Microsoft Game of Learners Season 4 Winner</h4>
+                                <p>Led the development of an award-winning medical language translator application using Django and fine-tuned NLLB open-source model.</p>
+                            </div>
+                            <div class="timeline-item">
+                                <h4>Google Crowdsource ML Facilitator</h4>
+                                <p>Facilitated Crowdsource ML events and tutored learners on Machine Learning and data science.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!--====== PRELOADER ENDS START ======-->
-
-    <!--====== HEADER PART START ======-->
-
-    <header id="home" class="header-area">
-        <div class="navigation fixed-top">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <nav class="navbar navbar-expand-lg">
-                            <a class="navbar-brand" href="index.html">
-                                <img src="assets/images/logo.png" alt="Logo">
-                            </a> <!-- Logo -->
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                                <span class="toggler-icon"></span>
-                            </button>
-
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item active"><a class="page-scroll" href="#home">Home</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="#about">About</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="#service">Services</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="#work">Portfolio</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="#blog">Blog</a></li>
-                                    <li class="nav-item"><a class="page-scroll" href="#contact">Contact</a></li>
-                                </ul>
-                            </div> <!-- navbar collapse -->
-                        </nav> <!-- navbar -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- navigation -->
-
-        <div id="parallax" class="header-content d-flex align-items-center">
-            <div class="header-shape shape-one layer" data-depth="0.10">
-                <img src="assets/images/banner/shape/shape-1.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-tow layer" data-depth="0.30">
-                <img src="assets/images/banner/shape/shape-2.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-three layer" data-depth="0.40">
-                <img src="assets/images/banner/shape/shape-3.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-fore layer" data-depth="0.60">
-                <img src="assets/images/banner/shape/shape-2.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-five layer" data-depth="0.20">
-                <img src="assets/images/banner/shape/shape-1.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-six layer" data-depth="0.15">
-                <img src="assets/images/banner/shape/shape-4.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-seven layer" data-depth="0.50">
-                <img src="assets/images/banner/shape/shape-5.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-eight layer" data-depth="0.40">
-                <img src="assets/images/banner/shape/shape-3.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-nine layer" data-depth="0.20">
-                <img src="assets/images/banner/shape/shape-6.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="header-shape shape-ten layer" data-depth="0.30">
-                <img src="assets/images/banner/shape/shape-3.png" alt="Shape">
-            </div> <!-- header shape -->
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-xl-5 col-lg-6">
-                        <div class="header-content-right">
-                            <h4 class="sub-title">Hello, I’m</h4>
-                            <h1 class="title">Mark Parker</h1>
-                            <p>A Freelance UI Designer & Web Developer</p>
-                            <a class="main-btn" href="#work">View my Work</a>
-                        </div> <!-- header content right -->
-                    </div>
-                    <div class="col-lg-6 offset-xl-1">
-                        <div class="header-image d-none d-lg-block">
-                            <img src="assets/images/banner/hero.png" alt="hero">
-                        </div> <!-- header image -->
-                    </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-            <div class="header-social">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="header-social-icon">
-                                <ul>
-                                    <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                                    <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                                    <li><a href="#"><i class="lni-behance-original"></i></a></li>
-                                    <li><a href="#"><i class="lni-linkedin-original"></i></a></li>
-                                </ul>
-                            </div> <!-- header social -->
-                        </div>
-                    </div> <!-- row -->
-                </div> <!-- container -->
-            </div> <!-- header social -->
-        </div> <!-- header content -->
-    </header>
-
-    <!--====== HEADER PART ENDS ======-->
-
-    <!--====== ABOUT PART START ======-->
-
-    <section id="about" class="about-area pt-125 pb-130">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center">
-                        <h2 class="title">About Me</h2>
-                        <p>Nunc id dui at sapien faucibus fermentum ut vel diam. Nullam tempus, nunc id efficitur sagittis, urna est ultricies eros, ac porta sem turpis quis leo.</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="about-content mt-50">
-                        <h5 class="about-title">Hi There! I'm Mark Parker</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                        <ul class="clearfix">
-                            <li>
-                                <div class="single-info d-flex align-items-center">
-                                    <div class="info-icon">
-                                        <i class="lni-calendar"></i>
-                                    </div>
-                                    <div class="info-text">
-                                        <p><span>Date of birth:</span> 8 June 1995</p>
-                                    </div>
-                                </div> <!-- single info -->
-                            </li>
-                            <li>
-                                <div class="single-info d-flex align-items-center">
-                                    <div class="info-icon">
-                                        <i class="lni-envelope"></i>
-                                    </div>
-                                    <div class="info-text">
-                                        <p><span>Email:</span> parker@mysite.com</p>
-                                    </div>
-                                </div> <!-- single info -->
-                            </li>
-                            <li>
-                                <div class="single-info d-flex align-items-center">
-                                    <div class="info-icon">
-                                        <i class="lni-phone-handset"></i>
-                                    </div>
-                                    <div class="info-text">
-                                        <p><span>Phone:</span> +1-202-555-0138</p>
-                                    </div>
-                                </div> <!-- single info -->
-                            </li>
-                            <li>
-                                <div class="single-info d-flex align-items-center">
-                                    <div class="info-icon">
-                                        <i class="lni-map-marker"></i>
-                                    </div>
-                                    <div class="info-text">
-                                        <p><span>Location:</span> 4373, El Centro, CA</p>
-                                    </div>
-                                </div> <!-- single info -->
-                            </li>
-                        </ul>
-                    </div> <!-- about content -->
-                </div>
-                <div class="col-xl-5 offset-xl-1 col-lg-6">
-                    <div class="about-skills pt-25">
-                        <div class="skill-item mt-25">
-                            <div class="skill-header">
-                                <h6 class="skill-title">HTML</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box counted">
-                                        <span class="counter">80</span>
-                                    </div>
-                                    %
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="80"></div>
-                                </div>
-                            </div>
-                        </div> <!-- skill item -->
-                        <div class="skill-item mt-25">
-                            <div class="skill-header">
-                                <h6 class="skill-title">CSS</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box counted">
-                                        <span class="counter">60</span>
-                                    </div>
-                                    %
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="60"></div>
-                                </div>
-                            </div>
-                        </div> <!-- skill item -->
-                        <div class="skill-item mt-25">
-                            <div class="skill-header">
-                                <h6 class="skill-title">Photoshop</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box counted">
-                                        <span class="counter">50</span>
-                                    </div>
-                                    %
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="50"></div>
-                                </div>
-                            </div>
-                        </div> <!-- skill item -->
-                        <div class="skill-item mt-25">
-                            <div class="skill-header">
-                                <h6 class="skill-title">Sketch</h6>
-                                <div class="skill-percentage">
-                                    <div class="count-box counted">
-                                        <span class="counter">90</span>
-                                    </div>
-                                    %
-                                </div>
-                            </div>
-                            <div class="skill-bar">
-                                <div class="bar-inner">
-                                    <div class="bar progress-line" data-width="90"></div>
-                                </div>
-                            </div>
-                        </div> <!-- skill item -->
-                    </div> <!-- about skills -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
     </section>
 
-    <!--====== ABOUT PART ENDS ======-->
-
-    <!--====== SERVICES PART START ======-->
-
-    <section id="service" class="services-area gray-bg pt-125 pb-130">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center pb-30">
-                        <h2 class="title">My Services</h2>
-                        <p>Nunc id dui at sapien faucibus fermentum ut vel diam. Nullam tempus, nunc id efficitur sagittis, urna est ultricies eros, ac porta sem turpis quis leo.</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-service text-center mt-30">
-                        <div class="service-icon">
-                            <i class="lni-code-alt"></i>
-                        </div>
-                        <div class="service-content">
-                            <h4 class="service-title"><a href="#">Web Design</a></h4>
-                            <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                        </div>
-                    </div> <!-- single service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-service text-center mt-30">
-                        <div class="service-icon">
-                            <i class="lni-color-pallet"></i>
-                        </div>
-                        <div class="service-content">
-                            <h4 class="service-title"><a href="#contact">Graphic Design</a></h4>
-                            <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                        </div>
-                    </div> <!-- single service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-service text-center mt-30">
-                        <div class="service-icon">
-                            <i class="lni-mobile"></i>
-                        </div>
-                        <div class="service-content">
-                            <h4 class="service-title"><a href="#">App Design</a></h4>
-                            <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                        </div>
-                    </div> <!-- single service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-service text-center mt-30">
-                        <div class="service-icon">
-                            <i class="lni-vector"></i>
-                        </div>
-                        <div class="service-content">
-                            <h4 class="service-title"><a href="#">Illustration Design</a></h4>
-                            <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                        </div>
-                    </div> <!-- single service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-service text-center mt-30">
-                        <div class="service-icon">
-                            <i class="lni-website"></i>
-                        </div>
-                        <div class="service-content">
-                            <h4 class="service-title"><a href="#">Web Development</a></h4>
-                            <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                        </div>
-                    </div> <!-- single service -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-8">
-                    <div class="single-service text-center mt-30">
-                        <div class="service-icon">
-                            <i class="lni-support"></i>
-                        </div>
-                        <div class="service-content">
-                            <h4 class="service-title"><a href="#">Consultancy and Support</a></h4>
-                            <p>Curabitur vitae magna felis. Nulla ac libero ornare, vestibulum lacus quis blandit enimdicta sunt.</p>
-                        </div>
-                    </div> <!-- single service -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== SERVICES PART ENDS ======-->
-
-    <!--====== CALL TO ACTION PART START ======-->
-
-    <section id="call-to-action" class="call-to-action pt-125 pb-130 bg_cover" style="background-image: url(assets/images/call-to-action.jpg)">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-xl-8 col-lg-9">
-                    <div class="call-action-content text-center">
-                        <h2 class="action-title">Have any project on mind?</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua nostrud.</p>
-                        <ul>
-                            <li><a class="main-btn custom" href="#">download cv</a></li>
-                            <li><a class="main-btn custom-2" href="#">hire me</a></li>
-                        </ul>
-                    </div> <!-- call action content -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== CALL TO ACTION PART ENDS ======-->
-
-    <!--====== WORK PART START ======-->
-
-    <section id="work" class="work-area pt-125 pb-130">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="section-title pb-25">
-                        <h2 class="title">My Recent Works</h2>
-                        <p>Nunc id dui at sapien faucibus fermentum ut vel diam. Nullam tempus, nunc id efficitur sagittis, urna est ultricies eros, ac porta sem turpis quis leo.</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-work text-center mt-30">
-                        <div class="work-image">
-                            <img src="assets/images/work/w-1.jpg" alt="work">
-                        </div>
-                        <div class="work-overlay">
-                            <div class="work-content">
-                                <h3 class="work-title">Product Design</h3>
-                                <ul>
-                                    <li><a class="image-popup" href="assets/images/work/w-1.jpg"><i class="lni-plus"></i></a></li>
-                                    <li><a href="#"><i class="lni-link"></i></a></li>
-                                </ul>
+    <!-- Experience Section -->
+    <section id="experience" class="py-5 bg-gradient-light">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Professional Experience</h2>
+            <div class="row g-4">
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary text-white p-3 rounded me-3">
+                                    <i class="fas fa-brain fs-3"></i>
+                                </div>
+                                <div>
+                                    <h3 class="card-title mb-0">Machine Learning Engineer</h3>
+                                    <p class="text-muted mb-0">Oxygene | Aug 2024 - Mar 2025</p>
+                                </div>
                             </div>
-                        </div>
-                    </div> <!-- single work -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-work text-center mt-30">
-                        <div class="work-image">
-                            <img src="assets/images/work/w-2.jpg" alt="work">
-                        </div>
-                        <div class="work-overlay">
-                            <div class="work-content">
-                                <h3 class="work-title">Product Design</h3>
-                                <ul>
-                                    <li><a class="image-popup" href="assets/images/work/w-2.jpg"><i class="lni-plus"></i></a></li>
-                                    <li><a href="#"><i class="lni-link"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> <!-- single work -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-work text-center mt-30">
-                        <div class="work-image">
-                            <img src="assets/images/work/w-3.jpg" alt="work">
-                        </div>
-                        <div class="work-overlay">
-                            <div class="work-content">
-                                <h3 class="work-title">Product Design</h3>
-                                <ul>
-                                    <li><a class="image-popup" href="assets/images/work/w-3.jpg"><i class="lni-plus"></i></a></li>
-                                    <li><a href="#"><i class="lni-link"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> <!-- single work -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-work text-center mt-30">
-                        <div class="work-image">
-                            <img src="assets/images/work/w-4.jpg" alt="work">
-                        </div>
-                        <div class="work-overlay">
-                            <div class="work-content">
-                                <h3 class="work-title">Product Design</h3>
-                                <ul>
-                                    <li><a class="image-popup" href="assets/images/work/w-4.jpg"><i class="lni-plus"></i></a></li>
-                                    <li><a href="#"><i class="lni-link"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> <!-- single work -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-work text-center mt-30">
-                        <div class="work-image">
-                            <img src="assets/images/work/w-5.jpg" alt="work">
-                        </div>
-                        <div class="work-overlay">
-                            <div class="work-content">
-                                <h3 class="work-title">Product Design</h3>
-                                <ul>
-                                    <li><a class="image-popup" href="assets/images/work/w-5.jpg"><i class="lni-plus"></i></a></li>
-                                    <li><a href="#"><i class="lni-link"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> <!-- single work -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-6">
-                    <div class="single-work text-center mt-30">
-                        <div class="work-image">
-                            <img src="assets/images/work/w-6.jpg" alt="work">
-                        </div>
-                        <div class="work-overlay">
-                            <div class="work-content">
-                                <h3 class="work-title">Product Design</h3>
-                                <ul>
-                                    <li><a class="image-popup" href="assets/images/work/w-6.jpg"><i class="lni-plus"></i></a></li>
-                                    <li><a href="#"><i class="lni-link"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div> <!-- single work -->
-                </div>
-            </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="work-more text-center mt-50">
-                        <a class="main-btn" href="#">more works</a>
-                    </div> <!-- work more -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== WORK PART ENDS ======-->
-
-    <!--====== PRICING PART START ======-->
-
-    <section id="pricing" class="pricing-area gray-bg pt-125 pb-130">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center pb-25">
-                        <h2 class="title">My Pricing Plans</h2>
-                        <p>Nunc id dui at sapien faucibus fermentum ut vel diam. Nullam tempus, nunc id efficitur sagittis, urna est ultricies eros, ac porta sem turpis quis leo.</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-pricing text-center mt-30">
-                        <div class="pricing-package">
-                            <h4 class="package-title">Basic</h4>
-                        </div>
-                        <div class="pricing-body">
-                            <div class="pricing-text">
-                                <p>Simple project management for teams and small businesses.</p>
-                                <span class="price">$19.00</span>
-                            </div>
-                            <div class="pricing-list">
-                                <ul>
-                                    <li>Unlimited Tasks</li>
-                                    <li>Unlimited Public</li>
-                                    <li>Private Projects</li>
-                                    <li>Unlimited Teams</li>
-                                    <li>All Integrations</li>
-                                    <li>Public API</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-btn">
-                                <a class="main-btn" href="#contact">get quote</a>
-                            </div>
-                        </div>
-                    </div> <!-- single pricing -->
-                </div>
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-pricing active text-center mt-30">
-                        <div class="pricing-package">
-                            <h4 class="package-title">Standard</h4>
-                        </div>
-                        <div class="pricing-body">
-                            <div class="pricing-text">
-                                <p>Simple project management for teams and small businesses.</p>
-                                <span class="price">$39.00</span>
-                            </div>
-                            <div class="pricing-list">
-                                <ul>
-                                    <li>Unlimited Tasks</li>
-                                    <li>Unlimited Public</li>
-                                    <li>Private Projects</li>
-                                    <li>Unlimited Teams</li>
-                                    <li>All Integrations</li>
-                                    <li>Public API</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-btn">
-                                <a class="main-btn" href="#contact">get quote</a>
-                            </div>
-                        </div>
-                    </div> <!-- single pricing -->
-                </div>
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-pricing text-center mt-30">
-                        <div class="pricing-package">
-                            <h4 class="package-title">Premium</h4>
-                        </div>
-                        <div class="pricing-body">
-                            <div class="pricing-text">
-                                <p>Simple project management for teams and small businesses.</p>
-                                <span class="price">$29.00</span>
-                            </div>
-                            <div class="pricing-list">
-                                <ul>
-                                    <li>Unlimited Tasks</li>
-                                    <li>Unlimited Public</li>
-                                    <li>Private Projects</li>
-                                    <li>Unlimited Teams</li>
-                                    <li>All Integrations</li>
-                                    <li>Public API</li>
-                                </ul>
-                            </div>
-                            <div class="pricing-btn">
-                                <a class="main-btn" href="#contact">get quote</a>
-                            </div>
-                        </div>
-                    </div> <!-- single pricing -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== PRICING PART ENDS ======-->
-
-    <!--====== BLOG PART START ======-->
-
-    <section id="blog" class="blog-area pt-125 pb-130">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center pb-25">
-                        <h2 class="title">From The Blog</h2>
-                        <p>Nunc id dui at sapien faucibus fermentum ut vel diam. Nullam tempus, nunc id efficitur sagittis, urna est ultricies eros, ac porta sem turpis quis leo.</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-blog mt-30">
-                        <div class="blog-image">
-                            <img src="assets/images/blog/b-1.jpg" alt="Blog">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="blog-title"><a href="#">Hired Releases 2023 Brand Health.</a></h4>
-                            <span>July 26, 2022</span>
-                        </div>
-                    </div> <!-- single blog -->
-                </div>
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-blog mt-30">
-                        <div class="blog-image">
-                            <img src="assets/images/blog/b-2.jpg" alt="Blog">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="blog-title"><a href="#">Hired Releases 2023 Brand Health.</a></h4>
-                            <span>July 26, 2022</span>
-                        </div>
-                    </div> <!-- single blog -->
-                </div>
-                <div class="col-lg-4 col-md-8 col-sm-9">
-                    <div class="single-blog mt-30">
-                        <div class="blog-image">
-                            <img src="assets/images/blog/b-3.jpg" alt="Blog">
-                        </div>
-                        <div class="blog-content">
-                            <h4 class="blog-title"><a href="#">Hired Releases 2023 Brand Health.</a></h4>
-                            <span>July 26, 2022</span>
-                        </div>
-                    </div> <!-- single blog -->
-                </div>
-            </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="blog-more text-center mt-50">
-                        <a class="main-btn" href="#">More posts</a>
-                    </div> <!-- blog more -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== BLOG PART ENDS ======-->
-
-    <!--====== CONTACT PART START ======-->
-
-    <section id="contact" class="contact-area pt-125 pb-130 gray-bg">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="section-title text-center pb-25">
-                        <h2 class="title">Get In Touch</h2>
-                        <p>Nunc id dui at sapien faucibus fermentum ut vel diam. Nullam tempus, nunc id efficitur sagittis, urna est ultricies eros, ac porta sem turpis quis leo.</p>
-                    </div> <!-- section title -->
-                </div>
-            </div> <!-- row -->
-            <div class="row justify-content-center">
-                <div class="col-lg-4 col-md-6 col-sm-7">
-                    <div class="contact-box text-center mt-30">
-                        <div class="contact-icon">
-                            <i class="lni-map-marker"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h6 class="contact-title">Address</h6>
-                            <p>123 Stree New York City , United States Of America 750</p>
-                        </div>
-                    </div> <!-- contact box -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-7">
-                    <div class="contact-box text-center mt-30">
-                        <div class="contact-icon">
-                            <i class="lni-phone"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h6 class="contact-title">Phone</h6>
-                            <p>+931 2222 5555</p>
-                            <p>+547 5554 6663</p>
-                        </div>
-                    </div> <!-- contact box -->
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-7">
-                    <div class="contact-box text-center mt-30">
-                        <div class="contact-icon">
-                            <i class="lni-envelope"></i>
-                        </div>
-                        <div class="contact-content">
-                            <h6 class="contact-title">Email</h6>
-                            <p>support@yourmail.com</p>
-                            <p>info@helpline.com</p>
-                        </div>
-                    </div> <!-- contact box -->
-                </div>
-            </div> <!-- row -->
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="contact-form pt-30">
-                        <form id="contact-form" action="assets/contact.php">
-                            <div class="single-form">
-                                <input type="text" name="name" placeholder="Name">
-                            </div> <!-- single form -->
-                            <div class="single-form">
-                                <input type="email" name="email" placeholder="Email">
-                            </div> <!-- single form -->
-                            <div class="single-form">
-                                <textarea name="message" placeholder="Message"></textarea>
-                            </div> <!-- single form -->
-                            <p class="form-message"></p>
-                            <div class="single-form">
-                                <button class="main-btn" type="submit">Send Message</button>
-                            </div> <!-- single form -->
-                        </form>
-                    </div> <!-- contact form -->
-                </div>
-                <div class="col-lg-6">
-                    <div class="contact-map mt-60">
-                        <div class="gmap_canvas">                            
-                            <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
-                        </div>
-                    </div> <!-- contact map -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </section>
-
-    <!--====== CONTACT PART ENDS ======-->
-
-    <!--====== FOOTER PART START ======-->
-
-    <footer id="footer" class="footer-area">
-        <div class="footer-widget pt-130 pb-130">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-8">
-                        <div class="footer-content text-center">
-                            <a href="index.html">
-                                <img src="assets/images/logo-2.png" alt="Logo">
-                            </a>
-                            <p class="mt-">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor inci- didunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exe- rcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                            <ul>
-                                <li><a href="#"><i class="lni-facebook-filled"></i></a></li>
-                                <li><a href="#"><i class="lni-twitter-original"></i></a></li>
-                                <li><a href="#"><i class="lni-pinterest"></i></a></li>
-                                <li><a href="#"><i class="lni-linkedin-original"></i></a></li>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Developed, optimized, and implemented machine learning models and algorithms</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Fine-tuned models for sentiment analysis, topic classification, and market analysis</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Designed scalable ML infrastructure and data pipelines to process large volumes of data</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-primary me-2"></i> Developed and optimized large language models (LLMs) for text analysis</li>
                             </ul>
-                        </div> <!-- footer content -->
+                        </div>
                     </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- footer widget -->
-        <div class="footer-copyright pb-20">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="copyright-text text-center pt-20">
-                            <p>Copyright © 2022. Template Crafted by <a href="https://uideck.com" rel="nofollow">UIdeck</a></p>
-                        </div> <!-- copyright text -->
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-success text-white p-3 rounded me-3">
+                                    <i class="fas fa-code fs-3"></i>
+                                </div>
+                                <div>
+                                    <h3 class="card-title mb-0">Full-stack Developer</h3>
+                                    <p class="text-muted mb-0">Update Your Resume | Nov 2023 - July 2024</p>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Built backend and frontend using Django and OpenAI APIs</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Designed and implemented critical prompts to run the application</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Deployed code to Heroku and managed files using Azure Storage Blob</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Integrated payment subscriptions using Paystack's APIs</li>
+                            </ul>
+                        </div>
                     </div>
-                </div> <!-- row -->
-            </div> <!-- container -->
-        </div> <!-- footer widget -->
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-info text-white p-3 rounded me-3">
+                                    <i class="fas fa-chart-line fs-3"></i>
+                                </div>
+                                <div>
+                                    <h3 class="card-title mb-0">Data Scientist</h3>
+                                    <p class="text-muted mb-0">iLab Africa | June 2022 - Dec 2022</p>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-info me-2"></i> Developed and deployed ML/DL models using TensorFlow, PyTorch, and Scikit-learn</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-info me-2"></i> Created visualizations and interactive dashboards with Power BI and Excel</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-info me-2"></i> Automated data analysis workflows with Python scripts</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-info me-2"></i> Delivered data-driven proof-of-concept solutions for real-world problems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card border-0 shadow h-100">
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-warning text-white p-3 rounded me-3">
+                                    <i class="fas fa-pen-fancy fs-3"></i>
+                                </div>
+                                <div>
+                                    <h3 class="card-title mb-0">Technical Writer</h3>
+                                    <p class="text-muted mb-0">Freelance | Feb 2021 - Present</p>
+                                </div>
+                            </div>
+                            <ul class="list-unstyled">
+                                <li class="mb-2"><i class="fas fa-check-circle text-warning me-2"></i> Write tutorials and technical articles on data science, ML, DL, DevOps, and MLOPs</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-warning me-2"></i> Create comprehensive guides on Python programming and AI technologies</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-warning me-2"></i> Develop educational content for developers and data scientists</li>
+                                <li class="mb-2"><i class="fas fa-check-circle text-warning me-2"></i> Portfolio: <a href="https://github.com/FREDERICO23" target="_blank" class="text-decoration-none">github.com/FREDERICO23</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-5">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Skills & Technologies</h2>
+            
+            <div class="mb-5" data-aos="fade-up">
+                <h3 class="mb-4">Programming & Languages</h3>
+                <div class="d-flex flex-wrap">
+                    <div class="skill-bubble">Python</div>
+                    <div class="skill-bubble">R</div>
+                    <div class="skill-bubble">JavaScript</div>
+                    <div class="skill-bubble">HTML/CSS</div>
+                    <div class="skill-bubble">SQL</div>
+                </div>
+            </div>
+            
+            <div class="mb-5" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="mb-4">Web Development</h3>
+                <div class="d-flex flex-wrap">
+                    <div class="skill-bubble">Django</div>
+                    <div class="skill-bubble">Django REST</div>
+                    <div class="skill-bubble">Flask</div>
+                    <div class="skill-bubble">FastAPI</div>
+                    <div class="skill-bubble">RESTful API Design</div>
+                    <div class="skill-bubble">Bootstrap</div>
+                </div>
+            </div>
+            
+            <div class="mb-5" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="mb-4">Data Science & ML</h3>
+                <div class="d-flex flex-wrap">
+                    <div class="skill-bubble">TensorFlow</div>
+                    <div class="skill-bubble">PyTorch</div>
+                    <div class="skill-bubble">Scikit-learn</div>
+                    <div class="skill-bubble">Keras</div>
+                    <div class="skill-bubble">Natural Language Processing</div>
+                    <div class="skill-bubble">Large Language Models</div>
+                    <div class="skill-bubble">Computer Vision</div>
+                    <div class="skill-bubble">Apache Spark</div>
+                    <div class="skill-bubble">Data Analysis</div>
+                </div>
+            </div>
+            
+            <div class="mb-5" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="mb-4">Databases & Storage</h3>
+                <div class="d-flex flex-wrap">
+                    <div class="skill-bubble">SQL Databases</div>
+                    <div class="skill-bubble">NoSQL Databases</div>
+                    <div class="skill-bubble">MongoDB</div>
+                    <div class="skill-bubble">PostgreSQL</div>
+                    <div class="skill-bubble">MySQL</div>
+                </div>
+            </div>
+            
+            <div class="mb-5" data-aos="fade-up" data-aos-delay="400">
+                <h3 class="mb-4">DevOps & Cloud</h3>
+                <div class="d-flex flex-wrap">
+                    <div class="skill-bubble">Docker</div>
+                    <div class="skill-bubble">Kubernetes</div>
+                    <div class="skill-bubble">CI/CD</div>
+                    <div class="skill-bubble">AWS</div>
+                    <div class="skill-bubble">Azure</div>
+                    <div class="skill-bubble">Google Cloud Platform</div>
+                    <div class="skill-bubble">Heroku</div>
+                </div>
+            </div>
+            
+            <div data-aos="fade-up" data-aos-delay="500">
+                <h3 class="mb-4">Visualization & Reporting</h3>
+                <div class="d-flex flex-wrap">
+                    <div class="skill-bubble">Power BI</div>
+                    <div class="skill-bubble">Tableau</div>
+                    <div class="skill-bubble">Streamlit</div>
+                    <div class="skill-bubble">Matplotlib</div>
+                    <div class="skill-bubble">Seaborn</div>
+                    <div class="skill-bubble">Plotly</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-5 bg-gradient-light">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Featured Projects</h2>
+            
+            <!-- Project Category Tabs -->
+            <ul class="nav nav-tabs project-tabs justify-content-center mb-5" id="projectTabs" role="tablist" data-aos="fade-up">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="saas-tab" data-bs-toggle="tab" data-bs-target="#saas" type="button" role="tab" aria-controls="saas" aria-selected="true">SaaS Projects</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal" type="button" role="tab" aria-controls="personal" aria-selected="false">Personal Projects</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="client-tab" data-bs-toggle="tab" data-bs-target="#client" type="button" role="tab" aria-controls="client" aria-selected="false">Client Projects</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="hackathons-tab" data-bs-toggle="tab" data-bs-target="#hackathons" type="button" role="tab" aria-controls="hackathons" aria-selected="false">Hackathons/Competitions</button>
+                </li>
+            </ul>
+            
+            <!-- Tab Content -->
+            <div class="tab-content" id="projectTabsContent">
+                <!-- SaaS Projects -->
+                <div class="tab-pane fade show active" id="saas" role="tabpanel" aria-labelledby="saas-tab">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-primary">SaaS</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="ResumeOw">
+                                <div class="card-body">
+                                    <h4 class="card-title">ResuMeow.com</h4>
+                                    <p class="card-text">An everything app for resumes that helps users create, optimize, and track their job applications with AI assistance.</p>
+                                    <p class="text-muted mb-3">Django, OpenAI API, Azure, Paystack</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="https://resumeow.com" target="_blank" class="btn btn-sm btn-outline-primary">Visit Site</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-primary">SaaS</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="TrendScribbr">
+                                <div class="card-body">
+                                    <h4 class="card-title">TrendScribbr.com</h4>
+                                    <p class="card-text">Platform that converts trending social conversations into engaging content for businesses and content creators.</p>
+                                    <p class="text-muted mb-3">Python, NLP, React, Social Media APIs</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="https://trendscribbr.com" target="_blank" class="btn btn-sm btn-outline-primary">Visit Site</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-primary">SaaS</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="RubyNannies">
+                                <div class="card-body">
+                                    <h4 class="card-title">RubyNannies.com</h4>
+                                    <p class="card-text">Platform that connects qualified nannies with employers seeking reliable childcare services through AI-powered matching.</p>
+                                    <p class="text-muted mb-3">Django, ML, Matching Algorithms, Payment Integration</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="https://rubynannies.com" target="_blank" class="btn btn-sm btn-outline-primary">Visit Site</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Personal Projects -->
+                <div class="tab-pane fade" id="personal" role="tabpanel" aria-labelledby="personal-tab">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-success">Open Source</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="Docling OCR">
+                                <div class="card-body">
+                                    <h4 class="card-title">Docling OCR Package</h4>
+                                    <p class="card-text">Python package for OCR processing tailored specifically for document understanding with enhanced accuracy for forms and structured documents.</p>
+                                    <p class="text-muted mb-3">Python, OCR, Computer Vision, ML</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">PyPI Package</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-8" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-success">Open Source</span>
+                                </div>
+                                <img src="https://picsum.photos/800/250" class="card-img-top" alt="LUCY">
+                                <div class="card-body">
+                                    <h4 class="card-title">LUCY - Linked Unit for Career Yield</h4>
+                                    <p class="card-text">An open-source, military-inspired swarm of AI agents that finds and applies for jobs on your behalf — powered by your resume and personal preferences. LUCY automatically searches job boards, customizes applications, and manages the entire job hunt process.</p>
+                                    <p class="text-muted mb-3">Python, LLM Agents, Automation, Job APIs</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">Live Demo</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Client Projects -->
+                <div class="tab-pane fade" id="client" role="tabpanel" aria-labelledby="client-tab">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-danger">Client</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="Nelly Gichobi">
+                                <div class="card-body">
+                                    <h4 class="card-title">NellyGichobi.com</h4>
+                                    <p class="card-text">Personal branding website for a professional speaker and coach with content management and event booking functionality.</p>
+                                    <p class="text-muted mb-3">WordPress, Custom Theme, Booking System</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="https://nellygichobi.com" target="_blank" class="btn btn-sm btn-outline-primary">Visit Site</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-danger">Client</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="YDC Liberia">
+                                <div class="card-body">
+                                    <h4 class="card-title">YDCLiberia.org</h4>
+                                    <p class="card-text">Non-profit organization website with donation processing, event management, and volunteer coordination features.</p>
+                                    <p class="text-muted mb-3">Django, Payment Gateway, CMS</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="https://ydcliberia.org" target="_blank" class="btn btn-sm btn-outline-primary">Visit Site</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">Case Study</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                
+                <!-- Hackathons/Competitions -->
+                <div class="tab-pane fade" id="hackathons" role="tabpanel" aria-labelledby="hackathons-tab">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-warning">Winner</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="Jambocare">
+                                <div class="card-body">
+                                    <h4 class="card-title">Jambocare</h4>
+                                    <p class="card-text">A healthcare language translation app that breaks barriers in medical communication across different languages.</p>
+                                    <p class="text-muted mb-3">Microsoft Game of Learners (GOL)</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Demo</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="100">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-info">1st Runner-up</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="Ambulo">
+                                <div class="card-body">
+                                    <h4 class="card-title">Ambulo</h4>
+                                    <p class="card-text">Application linking patients with ambulances in emergency situations for faster response times.</p>
+                                    <p class="text-muted mb-3">Lakehub Innovation Hackathon</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Demo</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="200">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-success">Finalist</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="KenyaDelivers">
+                                <div class="card-body">
+                                    <h4 class="card-title">KenyaDelivers</h4>
+                                    <p class="card-text">A government all-services access gateway that centralizes public service delivery for citizens.</p>
+                                    <p class="text-muted mb-3">Meru University Innovations Hackathon</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Demo</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="300">
+                            <div class="card project-card shadow">
+                                <div class="project-type">
+                                    <span class="badge bg-primary">Participant</span>
+                                </div>
+                                <img src="https://picsum.photos/400/250" class="card-img-top" alt="LONA">
+                                <div class="card-body">
+                                    <h4 class="card-title">LONA</h4>
+                                    <p class="card-text">Learning On Natural Audio - a personalized learning app that allows students to learn using their favorite teacher's voices.</p>
+                                    <p class="text-muted mb-3">Lablab AI Hackathon</p>
+                                    <div class="d-flex justify-content-between">
+                                        <a href="#" class="btn btn-sm btn-outline-primary">View Demo</a>
+                                        <a href="#" class="btn btn-sm btn-outline-dark">GitHub</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Publications Section -->
+    <section id="publications" class="py-5">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Publications</h2>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="fade-up">
+                    <div class="card publication-card shadow h-100">
+                        <div class="card-body p-4 position-relative">
+                            <div class="publication-date">
+                                <span>2025</span>
+                                <span>Feb</span>
+                            </div>
+                            <h4 class="card-title mb-3">Understanding Large Language Models: A Developer's Guide</h4>
+                            <p class="card-text">A comprehensive guide to how LLMs work, their applications, and how developers can integrate them into their projects.</p>
+                            <p class="text-muted">Published in: <span class="fw-bold">Towards Data Science</span></p>
+                            <a href="#" class="btn btn-outline-primary mt-3">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card publication-card shadow h-100">
+                        <div class="card-body p-4 position-relative">
+                            <div class="publication-date">
+                                <span>2024</span>
+                                <span>Nov</span>
+                            </div>
+                            <h4 class="card-title mb-3">Building Scalable ML Systems with Django and TensorFlow</h4>
+                            <p class="card-text">A technical tutorial on integrating TensorFlow models with Django applications and deploying them to production environments.</p>
+                            <p class="text-muted">Published in: <span class="fw-bold">Real Python</span></p>
+                            <a href="#" class="btn btn-outline-primary mt-3">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card publication-card shadow h-100">
+                        <div class="card-body p-4 position-relative">
+                            <div class="publication-date">
+                                <span>2024</span>
+                                <span>Sep</span>
+                            </div>
+                            <h4 class="card-title mb-3">The Future of Natural Language Processing in African Languages</h4>
+                            <p class="card-text">An exploration of challenges and opportunities in developing NLP models for underrepresented African languages.</p>
+                            <p class="text-muted">Published in: <span class="fw-bold">AI for Africa Journal</span></p>
+                            <a href="#" class="btn btn-outline-primary mt-3">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card publication-card shadow h-100">
+                        <div class="card-body p-4 position-relative">
+                            <div class="publication-date">
+                                <span>2024</span>
+                                <span>Jul</span>
+                            </div>
+                            <h4 class="card-title mb-3">From Theory to Practice: Implementing MLOps in Startups</h4>
+                            <p class="card-text">A practical guide to implementing MLOps practices in resource-constrained startup environments.</p>
+                            <p class="text-muted">Published in: <span class="fw-bold">Medium - Towards AI</span></p>
+                            <a href="#" class="btn btn-outline-primary mt-3">Read Article</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-5 bg-gradient-light">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Event Gallery</h2>
+            <p class="lead text-center mb-5" data-aos="fade-up">Highlights from tech events, workshops, and conferences I've participated in</p>
+            
+            <div class="gallery-container" data-aos="fade-up">
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400" alt="Tech Workshop">
+                    <div class="gallery-caption">
+                        <h5>Google Crowdsource ML Workshop</h5>
+                        <p>Nairobi, Kenya - March 2025</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/800" alt="Conference Speaker">
+                    <div class="gallery-caption">
+                        <h5>AfricaAI Conference</h5>
+                        <p>Presenting on NLP advances - December 2024</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400" alt="Hackathon">
+                    <div class="gallery-caption">
+                        <h5>Microsoft Game of Learners Hackathon</h5>
+                        <p>Team photo after winning - August 2023</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/500" alt="Teaching">
+                    <div class="gallery-caption">
+                        <h5>Python for Data Science Workshop</h5>
+                        <p>Teaching at Meru University - June 2024</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://picsum.photos/600/400" alt="Panel Discussion">
+                    <div class="gallery-caption">
+                        <h5>AI Ethics Panel Discussion</h5>
+                        <p>Discussing responsible AI development - January 2025</p>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="/api/placeholder/600/450" alt="Coding Bootcamp">
+                    <div class="gallery-caption">
+                        <h5>Django Web Development Bootcamp</h5>
+                        <p>Facilitating a coding workshop - October 2024</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ML Playground Section -->
+    <section id="playground" class="py-5">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">ML Playground</h2>
+            <p class="lead text-center mb-5" data-aos="fade-up">Explore interactive demos of my machine learning models and experiments</p>
+            
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="card playground-card h-100 shadow">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-language text-primary mb-3 fa-3x"></i>
+                            <h4 class="card-title">Sentiment Analyzer</h4>
+                            <p class="card-text">Analyze the sentiment of any text in real-time using a fine-tuned BERT model.</p>
+                            <button class="btn btn-primary mt-3" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card playground-card h-100 shadow">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-image text-primary mb-3 fa-3x"></i>
+                            <h4 class="card-title">Image Classifier</h4>
+                            <p class="card-text">Test a custom image classification model on your own images.</p>
+                            <button class="btn btn-primary mt-3" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card playground-card h-100 shadow">
+                        <div class="card-body p-4 text-center">
+                            <i class="fas fa-robot text-primary mb-3 fa-3x"></i>
+                            <h4 class="card-title">Chatbot Demo</h4>
+                            <p class="card-text">Interact with a fine-tuned LLM chatbot designed to answer questions about machine learning.</p>
+                            <button class="btn btn-primary mt-3" disabled>Coming Soon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5">
+                <p>More interactive demos are being developed. Check back soon for updates!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-5 bg-gradient-dark">
+        <div class="container py-5">
+            <h2 class="text-center display-5 fw-bold mb-5" data-aos="fade-up">Get In Touch</h2>
+            <div class="row g-4 justify-content-center">
+                <div class="col-md-4" data-aos="fade-up">
+                    <div class="card border-0 shadow text-center h-100">
+                        <div class="card-body p-4">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <h3 class="h4 mb-3">Email</h3>
+                            <p class="mb-0">
+                                <a href="mailto:adhingafredrick@gmail.com" class="text-decoration-none">adhingafredrick@gmail.com</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="card border-0 shadow text-center h-100">
+                        <div class="card-body p-4">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <h3 class="h4 mb-3">LinkedIn</h3>
+                            <p class="mb-0">
+                                <a href="https://linkedin.com/in/adhingafredrick" target="_blank" class="text-decoration-none">linkedin.com/in/adhingafredrick</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="card border-0 shadow text-center h-100">
+                        <div class="card-body p-4">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <h3 class="h4 mb-3">GitHub</h3>
+                            <p class="mb-0">
+                                <a href="https://github.com/FREDERICO23" target="_blank" class="text-decoration-none">github.com/FREDERICO23</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row mt-5 justify-content-center">
+                <div class="col-lg-8" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card border-0 shadow">
+                        <div class="card-body p-4">
+                            <h3 class="text-center mb-4">Send Me a Message</h3>
+                            <form>
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="name" placeholder="Your Name">
+                                            <label for="name">Your Name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating mb-3">
+                                            <input type="email" class="form-control" id="email" placeholder="Your Email">
+                                            <label for="email">Your Email</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="subject" placeholder="Subject">
+                                            <label for="subject">Subject</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-floating mb-3">
+                                            <textarea class="form-control" id="message" style="height: 150px" placeholder="Your Message"></textarea>
+                                            <label for="message">Your Message</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <button type="submit" class="btn btn-primary btn-lg px-4">Send Message</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-4 bg-dark text-white">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2025 Fredrick Adhing'a. All rights reserved.</p>
+        </div>
     </footer>
 
-    <!--====== FOOTER PART ENDS ======-->
+    <!-- Back to Top Button -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
 
-    <!--====== BACK TOP TOP PART START ======-->
-
-    <a href="#" class="back-to-top"><i class="lni-chevron-up"></i></a>
-
-    <!--====== BACK TOP TOP PART ENDS ======-->
-
-
-
-
-
-
-
-    <!--====== jquery js ======-->
-    <script src="assets/js/vendor/modernizr-3.6.0.min.js"></script>
-    <script src="assets/js/vendor/jquery-1.12.4.min.js"></script>
-
-    <!--====== Bootstrap js ======-->
-    <script src="assets/js/bootstrap.min.js"></script>
-    <script src="assets/js/popper.min.js"></script>
-
-    <!--====== Magnific Popup js ======-->
-    <script src="assets/js/jquery.magnific-popup.min.js"></script>
-
-    <!--====== Parallax js ======-->
-    <script src="assets/js/parallax.min.js"></script>
-
-    <!--====== Counter Up js ======-->
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-
-
-    <!--====== Appear js ======-->
-    <script src="assets/js/jquery.appear.min.js"></script>
-
-    <!--====== Scrolling js ======-->
-    <script src="assets/js/scrolling-nav.js"></script>
-    <script src="assets/js/jquery.easing.min.js"></script>
-
-
-    <!--====== Main js ======-->
-    <script src="assets/js/main.js"></script>
-
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    
+    <!-- Custom Scripts -->
+    <script>
+        // Initialize AOS animation
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                once: true
+            });
+            
+            // Navbar color change on scroll
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Back to top button
+            const backToTopButton = document.getElementById('backToTop');
+            window.addEventListener('scroll', function() {
+                if (window.scrollY > 300) {
+                    backToTopButton.style.display = 'flex';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+            
+            // Neural network animation
+            const canvas = document.getElementById('network-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                
+                // Neural network simulation
+                const neurons = [];
+                const connections = [];
+                const numNeurons = 50;
+                
+                // Create neurons
+                for (let i = 0; i < numNeurons; i++) {
+                    neurons.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        radius: Math.random() * 2 + 1,
+                        vx: Math.random() * 0.5 - 0.25,
+                        vy: Math.random() * 0.5 - 0.25
+                    });
+                }
+                
+                // Create connections
+                for (let i = 0; i < numNeurons; i++) {
+                    for (let j = i + 1; j < numNeurons; j++) {
+                        if (Math.random() < 0.05) {
+                            connections.push({
+                                from: i,
+                                to: j,
+                                width: Math.random() * 0.5 + 0.1
+                            });
+                        }
+                    }
+                }
+                
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Update and draw connections
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+                    for (const connection of connections) {
+                        const from = neurons[connection.from];
+                        const to = neurons[connection.to];
+                        
+                        const dx = to.x - from.x;
+                        const dy = to.y - from.y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+                        
+                        if (distance < 200) {
+                            ctx.beginPath();
+                            ctx.moveTo(from.x, from.y);
+                            ctx.lineTo(to.x, to.y);
+                            ctx.lineWidth = connection.width;
+                            ctx.stroke();
+                        }
+                    }
+                    
+                    // Update and draw neurons
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                    for (const neuron of neurons) {
+                        neuron.x += neuron.vx;
+                        neuron.y += neuron.vy;
+                        
+                        if (neuron.x < 0 || neuron.x > canvas.width) neuron.vx *= -1;
+                        if (neuron.y < 0 || neuron.y > canvas.height) neuron.vy *= -1;
+                        
+                        ctx.beginPath();
+                        ctx.arc(neuron.x, neuron.y, neuron.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    requestAnimationFrame(animate);
+                }
+                
+                animate();
+                
+                // Resize canvas on window resize
+                window.addEventListener('resize', function() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                });
+            }
+        });
+    </script>
 </body>
-
 </html>
